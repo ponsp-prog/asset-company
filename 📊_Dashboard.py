@@ -32,15 +32,3 @@ if not df.empty:
     st.dataframe(df, use_container_width=True)
 else:
     st.info("ยังไม่มีข้อมูลอุปกรณ์ในระบบ เริ่มเพิ่มข้อมูลได้ที่เมนูด้านซ้ายครับ")
-    
-st.subheader("จัดการอุปกรณ์")
-if not df.empty:
-    # สร้าง List ของ ID และชื่อ เพื่อเอามาใส่ในตัวเลือกการลบ
-    device_to_delete = st.selectbox("เลือกอุปกรณ์ที่ต้องการลบ", 
-                                    options=df['id'].tolist(),
-                                    format_func=lambda x: f"ID: {x} - {df[df['id']==x]['device_name'].values[0]}")
-    
-    if st.button("🗑️ ยืนยันการลบอุปกรณ์"):
-        delete_device(device_to_delete)
-        st.warning(f"ลบอุปกรณ์ ID {device_to_delete} เรียบร้อยแล้ว")
-        st.rerun() # สั่งให้หน้าเว็บโหลดข้อมูลใหม่ทันที
